@@ -147,7 +147,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 446.11764705882354,
+    "_orthoHeight": 320,
     "_near": 0,
     "_far": 2000,
     "_color": {
@@ -595,6 +595,10 @@
     "carromCoinPrefab": {
       "__uuid__": "8b3e265b-c8a3-4521-9e60-4a8e3e0c7be3",
       "__expectedType__": "cc.Prefab"
+    },
+    "jsonFile": {
+      "__uuid__": "4879b7a0-1dec-41e5-bcdf-62975ad611cd",
+      "__expectedType__": "cc.JsonAsset"
     },
     "_id": "34k0EOUI1DmYrsvbuNcyTh"
   },
