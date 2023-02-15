@@ -14,7 +14,6 @@ import {
 } from "cc";
 import { PUCK_TYPE } from "./Constants";
 import { crmCoinPrefabScript } from "./crmCoinPrefabScript";
-import { loadedRes } from "./loadedRes";
 
 const { ccclass, property } = _decorator;
 
@@ -73,7 +72,6 @@ export class gamePlayScript extends Component {
         let sizeOfVirtualBox = 100; // size of virtual box or box that we are imagining in which our pattern will be formed as drawn in above example
         let widthOfPuckCoinNode = pucks[0].getComponent(UITransform).width;
 
-        let puckIndex = 0; // very first puck is present at index 0 in pucks array
         let noOfPucksInRow = 3; // It defines no. of puck coins required in ith row, currently it tells that 3 puck coins are required at 0th or 1st row
         let isNoOfPucksWillIncrease = true; // It is just a flag, which we use to identify wheather we need to increament the noOfPucksInRow variable or decreament
 
@@ -82,25 +80,24 @@ export class gamePlayScript extends Component {
         let blackPuckIdx = 0;
         let whitePuckIdx = 9;
         let redPuckIdx = 18;
+
         for (let row = 0; row < 5; row++) {
             let gap = sizeOfVirtualBox - noOfPucksInRow * widthOfPuckCoinNode; // It defines the gap we need to insert from ends in each row
             let x = initialPosX + gap / 2; // So we will start inserting the puck coins after leaving the some space (i.e gap variable amount space) from left
             for (let col = 0; col < noOfPucksInRow; col++) {
                 if (jsonPattern[row][col] === "B") {
                     pucks[blackPuckIdx].setPosition(new Vec3(x, initialPosY, initialPosZ));
-                    x += 22; // Here 22 is the amount of spacing that we are maintaining between each coin horizontally
                     blackPuckIdx++;
                 } else if (jsonPattern[row][col] === "W") {
                     pucks[whitePuckIdx].setPosition(new Vec3(x, initialPosY, initialPosZ));
-                    x += 22;
                     whitePuckIdx++;
                 } else if (jsonPattern[row][col] === "R") {
                     pucks[redPuckIdx].setPosition(new Vec3(x, initialPosY, initialPosZ));
-                    x += 22;
                     // redPuckIdx++; // no need to increament
                 }
+                x += 22; // horizonal spacing between each puck/coin
             }
-            initialPosY -= 20; // Here 20 is the amount of spacing that we are maintaining between each coin vertically (or also can be said as each row)
+            initialPosY -= 20; // vertical spacing between rows
 
             if (noOfPucksInRow === 5) isNoOfPucksWillIncrease = false; // If we reach at mid row, it means now our number of pucks will decreament.
 
