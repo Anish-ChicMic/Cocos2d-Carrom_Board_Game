@@ -34,7 +34,7 @@ export class gamePlayScript extends Component {
         let pucks = carromBoardNode.children.slice(2, carromBoardNode.children.length);
 
         this.arrangePucks(pucks, -44, 40);
-        console.log(this.node.getChildByName("carromBoard").getChildByName("initialCoinsArrangement").children.length);
+        // console.log(this.node.getChildByName("carromBoard").getChildByName("initialCoinsArrangement").children.length);
     }
 
     start() {}
