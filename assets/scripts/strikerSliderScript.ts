@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Slider, Vec3, Input, input, UITransform, Size, tween} from "cc";
+import { _decorator, Component, Node, Slider, Vec3, Input, input, UITransform, Size, tween, find, misc} from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("strikerSliderScript")
@@ -16,16 +16,17 @@ export class strikerSliderScript extends Component {
         this.node.getComponent(Slider).progress = 0.5;
         let pos = this.strikerNode.getPosition();
         this.strikerNode.setPosition(0, pos.y, pos.z);
+        tween(this.strikerNode.children[2])
+                .by(20, {angle: 360})
+                .repeatForever()
+                .start()
 
         
 
         //
-        this.node.on(Input.EventType.MOUSE_DOWN, ()=>{
+        this.node.on(Input.EventType.TOUCH_START, ()=>{
             this.strikerNode.children[0].getComponent(UITransform).setContentSize(new Size(40,40));
-            tween(this.strikerNode.children[2])
-            .by(1, {angle: -360})
-            .repeatForever()
-            .start()
+            this.strikerNode.children[2].active = false;
             console.log(this.strikerNode.children.length);
         }, this)
         
@@ -35,11 +36,26 @@ export class strikerSliderScript extends Component {
         this.node.on('slide', this.moveStriker, this);
         
         
-        this.node.on(Input.EventType.MOUSE_UP, ()=>{
+        this.node.on(Input.EventType.TOUCH_CANCEL, ()=>{
             this.strikerNode.children[0].getComponent(UITransform).setContentSize(new Size(80,80));
-            this.strikerNode.children[2].active = false;
-            console.log("")
+            this.strikerNode.children[2].active = true;
+            tween(this.strikerNode.children[2])
+                .by(20, {angle: 360})
+                .repeatForever()
+                .start()
+            console.log("afdf")
         }, this)
+        
+        this.node.on(Input.EventType.TOUCH_END, ()=>{
+            this.strikerNode.children[0].getComponent(UITransform).setContentSize(new Size(80,80));
+            this.strikerNode.children[2].active = true;
+            tween(this.strikerNode.children[2])
+                .by(20, {angle: 360})
+                .repeatForever()
+                .start()
+            console.log("sdfdsa ")
+        }, this)
+
     }
 
     start() {}
@@ -48,7 +64,6 @@ export class strikerSliderScript extends Component {
 
 
     moveStriker() {
-
         let progress = this.node.getComponent(Slider).progress;
         progress = progress * this.width;
         let pos = this.strikerNode.getPosition();
