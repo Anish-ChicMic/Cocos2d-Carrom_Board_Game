@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Input, EventMouse, Vec3, UITransform, Vec2} from 'cc';
+import { _decorator, Component, Node, Input, EventMouse, Vec3, UITransform, Vec2, RigidBody, RigidBody2D} from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('strikerScript')
@@ -40,6 +40,12 @@ export class strikerScript extends Component {
         this.node.on(Input.EventType.TOUCH_CANCEL, (event)=>{
             console.log("touched end:::");
             this.node.getChildByName("targetCircle").active = false;
+
+            let movePos = event.getUILocation();
+            let diffX = (movePos.x - this.StartPos.x);
+            let diffY = (movePos.y - this.StartPos.y);
+
+            this.node.getComponent(RigidBody2D).linearVelocity = new Vec2(-diffX*0.5, -diffY*0.5);
         })
 
         
