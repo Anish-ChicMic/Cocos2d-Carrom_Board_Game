@@ -178,7 +178,7 @@
     "__prefab": {
       "__id__": 9
     },
-    "enabledContactListener": false,
+    "enabledContactListener": true,
     "bullet": false,
     "awakeOnLoad": true,
     "_group": 1,
@@ -215,8 +215,8 @@
     "_group": 1,
     "_density": 0,
     "_sensor": false,
-    "_friction": 0.2,
-    "_restitution": 0,
+    "_friction": 10,
+    "_restitution": 0.5,
     "_offset": {
       "__type__": "cc.Vec2",
       "x": 0,

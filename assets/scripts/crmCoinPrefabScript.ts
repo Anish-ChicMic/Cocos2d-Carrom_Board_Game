@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, SpriteFrame, Sprite, Vec2, Enum } from "cc";
+import { _decorator, Component, Node, SpriteFrame, Sprite, Vec2, Enum, Collider2D, Contact2DType } from "cc";
 import { PUCK_TYPE } from "./Constants";
 const { ccclass, property } = _decorator;
 
@@ -18,9 +18,18 @@ export class crmCoinPrefabScript extends Component {
 
     coinPuckType: PUCK_TYPE = PUCK_TYPE.NONE;
 
-    onLoad() {}
-    start() {}
-    update(deltaTime: number) {}
+    onLoad() { }
+    start() {
+        // let collider = this.getComponent(Collider2D);
+        // if (collider) {
+        //     collider.on(Contact2DType.BEGIN_CONTACT, (self: Collider2D, other: Collider2D) => {
+        //         console.log("collsion happend!")
+        //     });
+        //     // console.log(other.)
+
+        // }
+    }
+    update(deltaTime: number) { }
 
     setPuck(puckType: PUCK_TYPE) {
         switch (puckType) {
