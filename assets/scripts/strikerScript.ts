@@ -17,10 +17,13 @@ const { ccclass, property } = _decorator;
 @ccclass("strikerScript")
 export class strikerScript extends Component {
     StartPos = new Vec3(0, 0, 0);
+    initialPos: Vec3;
+    // isReposition: boolean = false;
 
     start() {
         // director.getCollisionManager();
         this.node.name = "strikerCoin";
+        this.initialPos = this.node.getPosition();
         this.node.getChildByName("targetCircle").active = false;
 
         this.node.on(
@@ -65,8 +68,20 @@ export class strikerScript extends Component {
             let diffY = movePos.y - this.StartPos.y;
 
             this.node.getComponent(RigidBody2D).linearVelocity = new Vec2(-diffX * 0.5, -diffY * 0.5);
+
+            // this.isReposition = true;
+            this.reposition();
         });
     }
 
     update(deltaTime: number) { }
+
+    reposition() {
+        this.schedule(() => {
+            let velo = this.node.getComponent(RigidBody2D).linearVelocity;
+            if (velo.x === 0 && velo.y === 0) {
+                this.node.setPosition(this.initialPos);
+            }
+        }, 0.5)
+    }
 }

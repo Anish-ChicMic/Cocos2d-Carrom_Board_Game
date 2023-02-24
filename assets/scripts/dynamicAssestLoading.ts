@@ -9,6 +9,7 @@ import {
   assetManager,
   Texture2D,
   tween,
+  director,
 } from "cc";
 
 import { loadedRes } from "./loadedRes";
@@ -31,46 +32,52 @@ export class dynamicAssestLoading extends Component {
     // });
 
 
-    
+
 
     // Loading directory
-    let ref = this;
-    resources.loadDir("Avatars", SpriteFrame, function (err, assets) {
-      if (!err) {
-        let length = assets.length;
-        let i = 0;
-        setInterval(function(){
-          console.log("id")
-          let a = "1"
-          ref.node.getChildByName("avtarSprite").getComponent(Sprite).spriteFrame = assets[i%length];
-          i++;
-        }, 100);
+    // let ref = this;
+    // resources.loadDir("Avatars", SpriteFrame, function (err, assets) {
+    //   if (!err) {
+    //     let length = assets.length;
+    //     let i = 0;
+    //     setInterval(function () {
+    //       console.log("id")
+    //       let a = "1"
+    //       ref.node.getChildByName("avtarSprite").getComponent(Sprite).spriteFrame = assets[i % length];
+    //       i++;
+    //     }, 100);
 
-        console.log(assets[0]);
-      } 
-      else {
-        console.log("Error Occured!");
-      }
-    });
+    //     console.log(assets[0]);
+    //   }
+    //   else {
+    //     console.log("Error Occured!");
+    //   }
+    // });
 
-    // let newIs = loadedRes.getInstance();
-    // let res = newIs.resourceLoad("Avatars");
-    // res.then((res)=>{
-    //   console.log("In main script: size of spArr is " + newIs.spritesArray.length)
-    //   this.node.getChildByName("avtarSprite").getComponent(Sprite).spriteFrame = newIs.spritesArray[0];
-    // }).catch(err=>console.log("Some error occured in catch!"));
-    
+    let newIs = loadedRes.getInstance();
+    let res = newIs.resourceLoad("Avatars");
+    res.then((res) => {
+      console.log("In main script: size of spArr is " + newIs.spritesArray.length)
+      this.node.getChildByName("avtarSprite").getComponent(Sprite).spriteFrame = newIs.spritesArray[0];
+      setTimeout(() => {
+        // director.loadScene("userRegister");
+        director.loadScene("gamePlay")
+      }, 10);
+    }).catch(err => console.log("Some error occured in catch!"));
+
     let loadBar = this.node.getChildByName("loadBar");
     tween(loadBar)
-      .by(1, {angle: -360})
+      .by(1, { angle: -360 })
       .repeatForever()
       .start()
-        
 
-      
+
+
   }
 
-  start() {}
+  start() {
 
-  update(deltaTime: number) {}
+  }
+
+  update(deltaTime: number) { }
 }

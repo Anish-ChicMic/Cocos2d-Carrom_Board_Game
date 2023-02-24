@@ -11,11 +11,14 @@ import {
     Size,
     Script,
     Vec3,
+    AudioSource,
 } from "cc";
 import { PUCK_TYPE } from "./Constants";
+import { SoundManager } from "./audioManager/audioManagerSingleton";
 import { crmCoinPrefabScript } from "./crmCoinPrefabScript";
 
 const { ccclass, property } = _decorator;
+
 
 @ccclass("gamePlayScript")
 export class gamePlayScript extends Component {
@@ -25,7 +28,20 @@ export class gamePlayScript extends Component {
     @property(JsonAsset)
     jsonFile: JsonAsset | null = null;
 
+
+    public singltonIns = null
+
+
     onLoad() {
+        let audioSrc = this.node.getComponent(AudioSource);
+        // audioSrc.play();
+        console.log(audioSrc);
+        let ins = SoundManager.getInstance();
+        this.singltonIns = ins;
+        ins.init(audioSrc);
+        ins.playMusic(true);
+
+
         this.createPucks(9, PUCK_TYPE.BLACK);
         this.createPucks(9, PUCK_TYPE.WHITE);
         this.createPucks(1, PUCK_TYPE.RED);
@@ -34,12 +50,19 @@ export class gamePlayScript extends Component {
         let pucks = carromBoardNode.children.slice(2, carromBoardNode.children.length);
 
         this.arrangePucks(pucks, -44, 40);
-        // console.log(this.node.getChildByName("carromBoard").getChildByName("initialCoinsArrangement").children.length);
+        console.log(this.node.getChildByName("carromBoard").getChildByName("initialCoinsArrangement").children.length);
+
+
+
     }
 
-    start() {}
+    start() {
 
-    update(deltaTime: number) {}
+
+    }
+
+    update(deltaTime: number) {
+    }
 
     createPucks(noOfpucksReq: number, puckType: PUCK_TYPE) {
         for (let no = 0; no < noOfpucksReq; no++) {
@@ -105,4 +128,7 @@ export class gamePlayScript extends Component {
             else noOfPucksInRow--;
         }
     }
+
+
 }
+
